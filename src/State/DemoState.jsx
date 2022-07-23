@@ -1,14 +1,44 @@
 import React, { Component } from "react";
 
 export default class DemoState extends Component {
-  status = false; //false la chua dang nhap true la da dang nhap
   username = "Khai Do";
+  //this.state la thuoc tinh co san duoc ke thua tu class component cua thu vien reactjs.Cac gia tri thay doi tren giao dien se duoc chua trong thuoc tinh cua this.state
+  state = {
+    status: false, //false la chua dang nhap true la da dang nhap
+  };
+
   renderLogin = () => {
-    if (this.status) {
+    //neu if co return thi khong can viet else
+    if (this.state.status) {
       return <span className="text-white me-3">{this.username}</span>;
     }
-    return <button className="btn btn-danger me-3">Dang Nhap</button>;
+    return (
+      <button
+        className="btn btn-danger me-3"
+        onClick={(e) => {
+          //chan su kien reload browser
+          e.preventDefault();
+          this.dangNhap();
+        }}
+      >
+        Dang Nhap
+      </button>
+    );
   };
+
+  dangNhap = () => {
+    console.log("dang nhap");
+    //this.state.status = true khong duoc phep gan state truc tiep
+    //let newState = {status : true}
+    //this.setState(newState): this.setState nhan vao mot object state moi thay the cho object state cu dong thoi render lai giao dien
+    //this.setState(newState)
+    //ham serState la ham bat dong bo khong dung async await trong setState
+    this.setState({ status: true },()=>{
+      //vế này sẽ tự động chạy sau khi state đc thay đổi va giao dien dc thay doi dung de thay the cho async await
+      console.log("state",this.state)
+    });
+  };
+
   render() {
     return (
       <div className="container">
